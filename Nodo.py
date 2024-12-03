@@ -22,16 +22,18 @@ class Nodo:
         self.genOutput()
 
     def genZ(self):
-        z = 0
-        s = self.entradas.shape
-        self.z = np.dot(self.entradas[0],self.entradas[1]).item() + self.b
+        #self.z = np.dot(self.entradas[0],self.entradas[1]).item() + self.b
+        self.z = 0
+        for i in range(len(self.entradas[0])):
+            self.z = self.z + (self.entradas[0][i].item() * self.entradas[1][i])
+        self.z = self.z + self.b
 
     def getZ(self):
         return self.z
 
     def genOutput(self):
-        print("Z: "+str(self.z))
-        print("Out : " + str(self.out))
+        #print("Z: "+str(self.z))
+        #print("Out : " + str(self.out))
         if self.z < -709:
             self.z = -709
         self.out = 1 / (1 + math.exp(-self.z))
